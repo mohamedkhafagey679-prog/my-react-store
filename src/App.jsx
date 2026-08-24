@@ -1,35 +1,23 @@
-// src/App.jsx
-import React, { useState } from 'react';
-import './App.css';
-import products from './products'; 
-import Products from './components/Products'; 
+import React, { useState } from "react";
+import "./App.css"; 
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Products from "./components/Products";
 
-function App() {
-  const [cart, setCart] = useState([]);
+export default function App() {
+  const [cartCount, setCartCount] = useState(0);
 
-  // الفانكشن الجديدة لإضافة المنتجات
-  const addToCart = (product) => {
-    setCart([...cart, product]);
+  const addToCart = () => {
+    setCartCount(cartCount + 1);
   };
 
   return (
-    <div className="App">
-      <header className="navbar">
-        <h1>متجري الإلكتروني</h1>
-        <div className="cart-icon">
-          🛒 السلة <span>({cart.length})</span>
-        </div>
-      </header>
-
-      <main className="store-container">
-        <h2>المنتجات المتاحة</h2>
-        
-        {/* بنمرر الفانكشن كـ Prop للمكون عشان يقدر يستخدمها */}
-        <Products productsList={products} onAddToCart={addToCart} />
-        
+    <div className="min-h-screen bg-slate-950 text-white font-sans antialiased">
+      <Navbar cartCount={cartCount} />
+      <Hero />
+      <main className="pb-24">
+        <Products addToCart={addToCart} />
       </main>
     </div>
   );
 }
-
-export default App;
